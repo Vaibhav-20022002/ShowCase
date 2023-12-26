@@ -1,7 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import fetchDataFromAPI from "./utils/api";
 
 function App() {
-	return <>App</>;
+	function testing() {
+		fetchDataFromAPI("/movie/popular").then((res) => {
+			console.log(res);
+		});
+	}
+
+	useEffect(() => {
+		testing();
+	}, []);
+
+	return <div>App</div>;
 }
 
 export default App;
