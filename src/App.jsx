@@ -17,20 +17,27 @@ function App() {
 	const dispatch = useDispatch();
 	const url = useSelector((state) => state.home.url);
 
-	function testing() {
-		fetchDataFromAPI("/movie/popular").then((res) => {
+	function fetchAPIConfig() {
+		fetchDataFromAPI("/configuration").then((res) => {
 			console.log(res);
-			dispatch(getApiConfiguration(res));
+
+			const imageURL = {
+				backdrop: res.images.secure_base_url + "original",
+				poster: res.images.secure_base_url + "original",
+				profile: res.images.secure_base_url + "original",
+			};
+
+			dispatch(getApiConfiguration(imageURL));
 		});
 	}
 
 	useEffect(() => {
-		testing();
+		fetchAPIConfig();
 	}, []);
 
 	return (
 		<Router>
-			<Header />
+			{/* <Header /> */}
 			<Routes>
 				<Route element={<Home />} path="/" />
 				<Route element={<Details />} path="/:mediaType/:id" />
@@ -38,7 +45,7 @@ function App() {
 				<Route element={<Explore />} path="/explore/:mediaType" />
 				<Route element={<Error404 />} path="*" />
 			</Routes>
-			<Footer />
+			{/* <Footer /> */}
 		</Router>
 	);
 }
