@@ -37,7 +37,7 @@ function App() {
 
 	return (
 		<Router>
-			{/* <Header /> */}
+			<Header />
 			<Routes>
 				<Route element={<Home />} path="/" />
 				<Route element={<Details />} path="/:mediaType/:id" />
