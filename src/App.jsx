@@ -45,7 +45,7 @@ function App() {
 				<Route element={<Explore />} path="/explore/:mediaType" />
 				<Route element={<Error404 />} path="*" />
 			</Routes>
-			{/* <Footer /> */}
+			<Footer />
 		</Router>
 	);
 }
