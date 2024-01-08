@@ -20,7 +20,19 @@ const Carousel = ({ data, loading }) => {
 	const { url } = useSelector((state) => state.home);
 	const navigate = useNavigate();
 
-	const navigation = (direction) => {};
+	const navigation = (direction) => {
+		const container = carouselContainer.current;
+
+		const scrollAmount =
+			direction === "left"
+				? container.scrollLeft - (container.offsetWidth + 20)
+				: container.scrollLeft + (container.offsetWidth + 20);
+
+		container.scrollTo({
+			left: scrollAmount,
+			behavior: "smooth",
+		});
+	};
 
 	const skeletonCard = () => {
 		return (
@@ -43,11 +55,11 @@ const Carousel = ({ data, loading }) => {
 				/>
 				<BsFillArrowRightCircleFill
 					className="carouselRighttNav arrow"
-					onClick={() => navigation("left")}
+					onClick={() => navigation("right")}
 				/>
 
 				{!loading ? (
-					<div className="carouselItems">
+					<div className="carouselItems" ref={carouselContainer}>
 						{data?.map((card) => {
 							const posterURL = card.poster_path
 								? url.poster + card.poster_path
@@ -55,7 +67,10 @@ const Carousel = ({ data, loading }) => {
 
 							return (
 								<div key={card.id} className="carouselItem">
-									<div className="posterBlock">
+									<div
+										className="posterBlock"
+										onClick={() => navigate(`/${card.media_type}/${card.id}`)}
+									>
 										<Img src={posterURL} />
 
 										<CircleRating rating={card.vote_average.toFixed(1)} />
