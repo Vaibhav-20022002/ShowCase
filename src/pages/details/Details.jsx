@@ -1,8 +1,14 @@
 import React from "react";
+
 import "./details.scss";
+import DetailsBanner from "./detailBanner/DetailBanner";
 
 const Details = () => {
-	return <div>Details</div>;
+	return (
+		<div>
+			<DetailsBanner />
+		</div>
+	);
 };
 
 export default Details;
